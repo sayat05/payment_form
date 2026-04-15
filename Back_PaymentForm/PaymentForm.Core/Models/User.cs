@@ -6,5 +6,4 @@ public class User
     public required string Name { get; set; }
     public required string Email { get; init; }
     public string PhoneNumber { get; set; } = string.Empty;
-    public required string WalletNumber { get; init; }
 }
