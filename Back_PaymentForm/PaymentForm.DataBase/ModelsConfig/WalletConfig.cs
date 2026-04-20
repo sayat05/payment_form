@@ -14,6 +14,7 @@ public class WalletConfig : IEntityTypeConfiguration<WalletEfCore>
         builder
             .HasOne(w => w.UserEfCore)
             .WithMany(u => u.WalletsEfCore)
+            .HasForeignKey(w => w.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder

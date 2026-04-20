@@ -14,6 +14,7 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
         builder
             .HasOne(p => p.WalletEfCore)
             .WithMany(w => w.PaymentsEfCore)
+            .HasForeignKey(p => p.WalletId)
             .OnDelete(DeleteBehavior.Cascade);
 
         var payments = new List<PaymentEfCore>
@@ -26,7 +27,7 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
                 Amount = 123,
                 Comment = "",
                 Currency = CurrencyType.Euro,
-                CreatedAt = DateTime.UtcNow,
+                // CreatedAt = DateTime.UtcNow,
                 Status = PaymentStatus.Created
             },
             
@@ -38,7 +39,7 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
                 Amount = 1000,
                 Comment = "",
                 Currency = CurrencyType.Kzt,
-                CreatedAt = DateTime.UtcNow,
+                // CreatedAt = DateTime.UtcNow,
                 Status = PaymentStatus.Created
             },
             
@@ -46,12 +47,12 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
             new()
             {
                 Id = 3,
-                WalletId = 237,
+                WalletId = 3,
                 Email = "user_2@u",
                 Amount = 123,
                 Comment = "",
                 Currency = CurrencyType.Euro,
-                CreatedAt = DateTime.UtcNow,
+                // CreatedAt = DateTime.UtcNow,
                 Status = PaymentStatus.Created
             },
             
@@ -64,7 +65,7 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
                 Amount = 765,
                 Comment = "",
                 Currency = CurrencyType.Rub,
-                CreatedAt = DateTime.UtcNow,
+                // CreatedAt = DateTime.UtcNow,
                 Status = PaymentStatus.Created
             },
             
@@ -77,7 +78,7 @@ public class PaymentConfig : IEntityTypeConfiguration<PaymentEfCore>
                 Amount = 5000,
                 Comment = "",
                 Currency = CurrencyType.Uzs,
-                CreatedAt = DateTime.UtcNow,
+                // CreatedAt = DateTime.UtcNow,
                 Status = PaymentStatus.Created
             },
         };
