@@ -13,7 +13,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
     {
         var paymentsEfCore = await context.Payments.AsNoTracking().ToListAsync();
 
-        return paymentsEfCore.Select(ConvertorToPayment);
+        return paymentsEfCore.Select(ToPayment);
     }
 
     public async Task<(long count, IEnumerable<Payment> payments)> GetCreatedPayments()
@@ -23,7 +23,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
             .Where(p => p.Status == PaymentStatus.Created)
             .ToListAsync();
 
-        return (paymentsEfCore.Count, paymentsEfCore.Select(ConvertorToPayment));
+        return (paymentsEfCore.Count, paymentsEfCore.Select(ToPayment));
     }
 
     public async Task<(long count, IEnumerable<Payment> payments)> GetRejectedPayments()
@@ -33,7 +33,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
             .Where(p => p.Status == PaymentStatus.Rejected)
             .ToListAsync();
 
-        return (paymentsEfCore.Count, paymentsEfCore.Select(ConvertorToPayment));
+        return (paymentsEfCore.Count, paymentsEfCore.Select(ToPayment));
     }
 
     public async Task<Payment?> GetById(long id)
@@ -42,7 +42,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         if (paymentEfCore == null)
             return null;
 
-        return ConvertorToPayment(paymentEfCore);
+        return ToPayment(paymentEfCore);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
     }
 
 
-    private Payment ConvertorToPayment(PaymentEfCore efCore)
+    private Payment ToPayment(PaymentEfCore efCore)
     {
         return new Payment
         {

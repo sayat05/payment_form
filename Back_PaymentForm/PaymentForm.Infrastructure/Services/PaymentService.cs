@@ -4,7 +4,7 @@ using PaymentForm.Core.DtoModels;
 using PaymentForm.Core.Enums;
 using PaymentForm.Core.Models;
 
-namespace PaymentForm.Infrastructure;
+namespace PaymentForm.Infrastructure.Services;
 
 public class PaymentService(IPaymentRepository repository, IWalletRepository walletRepository) : IPaymentService
 {
@@ -12,22 +12,22 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
     {
         var payments = await repository.GetAll();
 
-        return payments.Select(ConvertToPaymentResponse);
+        return payments.Select(ToPaymentResponse);
     }
 
-    public async Task<(long, IEnumerable<PaymentResponseDto>)> GetCreatedPayments()
+    public async Task<(long count, IEnumerable<PaymentResponseDto> payments)> GetCreatedPayments()
     {
         var payments = await repository.GetCreatedPayments();
 
         
-        return (payments.Item1, payments.Item2.Select(ConvertToPaymentResponse));
+        return (payments.count, payments.payments.Select(ToPaymentResponse));
     }
 
-    public async Task<(long, IEnumerable<PaymentResponseDto>)> GetRejectedPayments()
+    public async Task<(long count, IEnumerable<PaymentResponseDto> payments)> GetRejectedPayments()
     {
         var payments = await repository.GetRejectedPayments();
 
-        return (payments.Item1, payments.Item2.Select(ConvertToPaymentResponse));
+        return (payments.count, payments.payments.Select(ToPaymentResponse));
     }
 
     public async Task<PaymentResponseDto?> GetById(long id)
@@ -36,7 +36,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         if (payment == null)
             return null;
         
-        return ConvertToPaymentResponse(payment);
+        return ToPaymentResponse(payment);
     }
 
     public async Task<decimal> GetSumByDay(DateTime dateTime)
@@ -83,7 +83,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         });
     }
 
-    private PaymentResponseDto ConvertToPaymentResponse(Payment payment)
+    private PaymentResponseDto ToPaymentResponse(Payment payment)
     {
         return new PaymentResponseDto
         {
