@@ -34,7 +34,7 @@ public class WalletsController(IWalletService service) : ControllerBase
         return Ok(await service.GetWalletNumber(walletNumber));
     }
     
-    [HttpGet("add")]
+    [HttpPost("add")]
     public async Task<ActionResult<IEnumerable<Wallet>>> Add(WalletAddDto dto)
     {
         var id = await service.Add(dto);
