@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using PaymentForm.Core.Abstractions.IRepositories;
+using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.DataBase.DataBase;
+using PaymentForm.DataBase.Repositories;
+using PaymentForm.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,13 @@ builder.Services.AddDbContext<MyAppContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+#endregion
+
+#region Сервисы и зависимости
+
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 #endregion
 
