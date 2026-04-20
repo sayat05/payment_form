@@ -4,7 +4,7 @@ public class WalletEfCore
 {
     public long Id { get; set; }
     public required string WalletNumber { get; init; }
-    public required decimal Balance { get; init; }
+    public required decimal Balance { get; set; }
     public required long UserId { get; init; }
 
     /// <summary>
