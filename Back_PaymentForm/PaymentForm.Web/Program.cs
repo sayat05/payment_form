@@ -3,7 +3,7 @@ using PaymentForm.Core.Abstractions.IRepositories;
 using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.DataBase.DataBase;
 using PaymentForm.DataBase.Repositories;
-using PaymentForm.Infrastructure;
+using PaymentForm.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +32,10 @@ builder.Services.AddDbContext<MyAppContext>(options =>
 #region Сервисы и зависимости
 
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
 
 #endregion
 
