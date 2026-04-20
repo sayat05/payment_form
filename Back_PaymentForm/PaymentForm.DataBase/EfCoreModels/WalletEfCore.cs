@@ -15,5 +15,5 @@ public class WalletEfCore
     /// <summary>
     /// У одного кошелька много платежей
     /// </summary>
-    public List<WalletEfCore> WalletsEfCore { get; init; } = [];
+    public List<PaymentEfCore> PaymentsEfCore { get; init; } = [];
 }   
