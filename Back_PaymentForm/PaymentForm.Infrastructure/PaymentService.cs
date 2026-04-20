@@ -1,11 +1,12 @@
 using PaymentForm.Core.Abstractions.IRepositories;
 using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.Core.DtoModels;
+using PaymentForm.Core.Enums;
 using PaymentForm.Core.Models;
 
 namespace PaymentForm.Infrastructure;
 
-public class PaymentService(IPaymentRepository repository) : IPaymentService
+public class PaymentService(IPaymentRepository repository, IWalletRepository walletRepository) : IPaymentService
 {
     public async Task<IEnumerable<PaymentResponse>> GetAll()
     {
@@ -21,29 +22,57 @@ public class PaymentService(IPaymentRepository repository) : IPaymentService
         return payments.Select(ConvertToPaymentResponse);
     }
 
-    public async Task<PaymentResponse> GetById(long id)
+    public async Task<PaymentResponse?> GetById(long id)
     {
-        throw new NotImplementedException();
+        var payment = await repository.GetById(id);
+        if (payment == null)
+            return null;
+        
+        return ConvertToPaymentResponse(payment);
     }
 
     public async Task<decimal> GetSumByDay(DateTime dateTime)
     {
-        return await repository.GetSumByDay(dateTime);
+        var utcDate = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+        return await repository.GetSumByDay(utcDate);
     }
 
     public async Task<long> GetCountPaymentsByDay(DateTime dateTime)
     {
-        throw new NotImplementedException();
+        var utcDate = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+        return await repository.GetCountPaymentsByDay(utcDate);
     }
 
     public async Task<decimal> GetTotalSum()
     {
-        throw new NotImplementedException();
+        return await repository.GetTotalSum();
     }
 
-    public async Task<long> AddPayment(PaymentAddDto payment)
+    public async Task<long?> AddPayment(PaymentAddDto dto)
     {
-        throw new NotImplementedException();
+        var wallet = await walletRepository.GetWalletNumber(dto.WalletNumber);
+        if (wallet == null || wallet.UserId != dto.UserId)
+            return null;
+        
+        var status = dto.Amount > wallet.Balance ? PaymentStatus.Rejected : PaymentStatus.Created;
+        
+        return await repository.AddPayment(new Payment
+        {
+            WalletId = wallet.Id,
+            Email = dto.Email,
+            Amount = dto.Amount,
+            Status = status,
+            Currency = dto.Currency switch
+            {
+                "Usd" => CurrencyType.Usd,
+                "Euro" => CurrencyType.Euro,
+                "Rub" => CurrencyType.Rub,
+                "Kzt" => CurrencyType.Kzt,
+                "Uzs" => CurrencyType.Uzs,
+            },
+            Comment = dto.Comment,
+            CreatedAt = DateTime.UtcNow
+        });
     }
 
     private PaymentResponse ConvertToPaymentResponse(Payment payment)
