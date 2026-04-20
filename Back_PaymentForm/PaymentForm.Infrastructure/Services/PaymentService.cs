@@ -94,7 +94,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
             Status = payment.Status.ToString(),
             Amount = payment.Amount,
             Comment = payment.Comment,
-            CreatedAt = payment.CreatedAt.ToString("d")
+            CreatedAt = payment.CreatedAt.ToLocalTime().ToString("d")
         };
     }
 }

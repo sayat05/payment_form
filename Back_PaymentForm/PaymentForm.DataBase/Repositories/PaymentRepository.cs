@@ -11,7 +11,10 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
 {
     public async Task<IEnumerable<Payment>> GetAll()
     {
-        var paymentsEfCore = await context.Payments.AsNoTracking().ToListAsync();
+        var paymentsEfCore = await context.Payments
+            .AsNoTracking()
+            .OrderByDescending(p => p.CreatedAt)
+            .ToListAsync();
 
         return paymentsEfCore.Select(ToPayment);
     }
@@ -80,7 +83,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
             Currency = payment.Currency,
             Status = payment.Status,
             Comment = payment.Comment,
-            CreatedAt = payment.CreatedAt
+            CreatedAt = payment.CreatedAt,
         });
 
         if (entity.Entity.Status == PaymentStatus.Created)

@@ -36,6 +36,12 @@ public class PaymentsController(IPaymentService service) : ControllerBase
             response.payments
         });
     }
+    
+    [HttpGet("getById")]
+    public async Task<ActionResult<Decimal>> GetById(long id)
+    {
+        return Ok(await service.GetById(id));
+    }
 
     [HttpGet("getSumDyDay")]
     public async Task<ActionResult<Decimal>> GetSumByDay([FromQuery] DateTime dateTime)
