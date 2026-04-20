@@ -1,4 +1,5 @@
 using PaymentForm.Core.DtoModels;
+using PaymentForm.Core.Enums;
 
 namespace PaymentForm.Core.Abstractions.IServices;
 
@@ -11,5 +12,5 @@ public interface IPaymentService
     Task<Decimal> GetSumByDay(DateTime dateTime);
     Task<long> GetCountPaymentsByDay(DateTime dateTime);
     Task<Decimal> GetTotalSum();
-    Task<long?> AddPayment(PaymentAddDto payment);
+    Task<(string status, long? id)> AddPayment(PaymentAddDto payment);
 }

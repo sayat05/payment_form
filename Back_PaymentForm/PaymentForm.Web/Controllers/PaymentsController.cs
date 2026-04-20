@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.Core.DtoModels;
+using PaymentForm.Core.Enums;
 using PaymentForm.Core.Models;
 
 namespace PaymentForm.Web.Controllers;
@@ -36,7 +37,7 @@ public class PaymentsController(IPaymentService service) : ControllerBase
             response.payments
         });
     }
-    
+
     [HttpGet("getById")]
     public async Task<ActionResult<Decimal>> GetById(long id)
     {
@@ -62,10 +63,24 @@ public class PaymentsController(IPaymentService service) : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<long>> Add(PaymentAddDto dto)
+    public async Task<ActionResult<(string status, long id)>> Add(PaymentAddDto dto)
     {
-        var id = await service.AddPayment(dto);
+        try
+        {
+            var response = await service.AddPayment(dto);
 
-        return id != null ? Ok(id) : BadRequest("Wallet not found or userId not own");
+            if (response.id == null)
+                return BadRequest("Wallet not found or userId not own");
+
+            return Ok(new
+            {
+                response.id,
+                response.status
+            });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }

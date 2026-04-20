@@ -56,15 +56,15 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         return await repository.GetTotalSum();
     }
 
-    public async Task<long?> AddPayment(PaymentAddDto dto)
+    public async Task<(string status, long? id)> AddPayment(PaymentAddDto dto)
     {
         var wallet = await walletRepository.GetWalletNumber(dto.WalletNumber);
         if (wallet == null || wallet.UserId != dto.UserId)
-            return null;
+            return (nameof(PaymentStatus.Rejected), null);
         
         var status = dto.Amount > wallet.Balance ? PaymentStatus.Rejected : PaymentStatus.Created;
         
-        return await repository.AddPayment(new Payment
+        var id = await repository.AddPayment(new Payment
         {
             WalletId = wallet.Id,
             Email = dto.Email,
@@ -77,10 +77,13 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
                 "Rub" => CurrencyType.Rub,
                 "Kzt" => CurrencyType.Kzt,
                 "Uzs" => CurrencyType.Uzs,
+                _ => throw new ArgumentOutOfRangeException($"Curency type doesnt match")
             },
             Comment = dto.Comment,
             CreatedAt = DateTime.UtcNow
         });
+
+        return status == PaymentStatus.Created ? (nameof(PaymentStatus.Created), id) : (nameof(PaymentStatus.Rejected), id);
     }
 
     private PaymentResponseDto ToPaymentResponse(Payment payment)
