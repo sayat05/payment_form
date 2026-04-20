@@ -1,6 +1,6 @@
 namespace PaymentForm.Core.DtoModels;
 
-public class PaymentResponse
+public class PaymentResponseDto
 {
     public long Id { get; init; }
     public long WalletId { get; init; }

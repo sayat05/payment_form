@@ -16,24 +16,24 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         return paymentsEfCore.Select(ConvertorToPayment);
     }
 
-    public async Task<IEnumerable<Payment>> GetCreatedPayments()
+    public async Task<(long count, IEnumerable<Payment> payments)> GetCreatedPayments()
     {
         var paymentsEfCore = await context.Payments
             .AsNoTracking()
             .Where(p => p.Status == PaymentStatus.Created)
             .ToListAsync();
 
-        return paymentsEfCore.Select(ConvertorToPayment);
+        return (paymentsEfCore.Count, paymentsEfCore.Select(ConvertorToPayment));
     }
 
-    public async Task<IEnumerable<Payment>> GetRejectedPayments()
+    public async Task<(long count, IEnumerable<Payment> payments)> GetRejectedPayments()
     {
         var paymentsEfCore = await context.Payments
             .AsNoTracking()
             .Where(p => p.Status == PaymentStatus.Rejected)
             .ToListAsync();
 
-        return paymentsEfCore.Select(ConvertorToPayment);
+        return (paymentsEfCore.Count, paymentsEfCore.Select(ConvertorToPayment));
     }
 
     public async Task<Payment?> GetById(long id)
@@ -82,13 +82,13 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
             Comment = payment.Comment,
             CreatedAt = payment.CreatedAt
         });
-        
+
         if (entity.Entity.Status == PaymentStatus.Created)
         {
             var wallet = await context.Wallets.FirstOrDefaultAsync(w => w.Id == entity.Entity.WalletId);
             wallet!.Balance -= entity.Entity.Amount;
         }
-        
+
         await context.SaveChangesAsync();
         return entity.Entity.Id;
     }

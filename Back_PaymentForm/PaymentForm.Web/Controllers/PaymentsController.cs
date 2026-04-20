@@ -16,15 +16,25 @@ public class PaymentsController(IPaymentService service) : ControllerBase
     }
 
     [HttpGet("getCreated")]
-    public async Task<ActionResult<IEnumerable<Payment>>> GetCreated()
+    public async Task<ActionResult<(long, IEnumerable<PaymentResponseDto>)>> GetCreated()
     {
-        return Ok(await service.GetCreatedPayments());
+        var response = await service.GetCreatedPayments();
+        return Ok(new
+        {
+            response.count,
+            response.payments
+        });
     }
-    
+
     [HttpGet("getRejected")]
-    public async Task<ActionResult<IEnumerable<Payment>>> GetRejected()
+    public async Task<ActionResult<(long, IEnumerable<PaymentResponseDto>)>> GetRejected()
     {
-        return Ok(await service.GetRejectedPayments());
+        var response = await service.GetRejectedPayments();
+        return Ok(new
+        {
+            response.count,
+            response.payments
+        });
     }
 
     [HttpGet("getSumDyDay")]
@@ -32,24 +42,24 @@ public class PaymentsController(IPaymentService service) : ControllerBase
     {
         return Ok(await service.GetSumByDay(dateTime));
     }
-    
+
     [HttpGet("getCountByDay")]
     public async Task<ActionResult<long>> GetCountByDay([FromQuery] DateTime dateTime)
     {
         return Ok(await service.GetCountPaymentsByDay(dateTime));
     }
-    
+
     [HttpGet("geTotalSum")]
     public async Task<ActionResult<long>> GetTotalSum()
     {
         return Ok(await service.GetTotalSum());
     }
-    
+
     [HttpPost("add")]
     public async Task<ActionResult<long>> Add(PaymentAddDto dto)
     {
         var id = await service.AddPayment(dto);
-        
-        return  id != null ? Ok(id) : BadRequest("Wallet not found or userId not own");
+
+        return id != null ? Ok(id) : BadRequest("Wallet not found or userId not own");
     }
 }

@@ -8,28 +8,29 @@ namespace PaymentForm.Infrastructure;
 
 public class PaymentService(IPaymentRepository repository, IWalletRepository walletRepository) : IPaymentService
 {
-    public async Task<IEnumerable<PaymentResponse>> GetAll()
+    public async Task<IEnumerable<PaymentResponseDto>> GetAll()
     {
         var payments = await repository.GetAll();
 
         return payments.Select(ConvertToPaymentResponse);
     }
 
-    public async Task<IEnumerable<PaymentResponse>> GetCreatedPayments()
+    public async Task<(long, IEnumerable<PaymentResponseDto>)> GetCreatedPayments()
     {
         var payments = await repository.GetCreatedPayments();
 
-        return payments.Select(ConvertToPaymentResponse);
+        
+        return (payments.Item1, payments.Item2.Select(ConvertToPaymentResponse));
     }
 
-    public async Task<IEnumerable<PaymentResponse>> GetRejectedPayments()
+    public async Task<(long, IEnumerable<PaymentResponseDto>)> GetRejectedPayments()
     {
         var payments = await repository.GetRejectedPayments();
 
-        return payments.Select(ConvertToPaymentResponse);
+        return (payments.Item1, payments.Item2.Select(ConvertToPaymentResponse));
     }
 
-    public async Task<PaymentResponse?> GetById(long id)
+    public async Task<PaymentResponseDto?> GetById(long id)
     {
         var payment = await repository.GetById(id);
         if (payment == null)
@@ -82,9 +83,9 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         });
     }
 
-    private PaymentResponse ConvertToPaymentResponse(Payment payment)
+    private PaymentResponseDto ConvertToPaymentResponse(Payment payment)
     {
-        return new PaymentResponse
+        return new PaymentResponseDto
         {
             Id = payment.Id,
             WalletId = payment.WalletId,
