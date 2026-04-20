@@ -35,24 +35,52 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         return ConvertorToPayment(paymentEfCore);
     }
 
+    /// <summary>
+    /// Сумма за день
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <returns></returns>
     public async Task<decimal> GetSumByDay(DateTime dateTime)
     {
         return await context.Payments.Where(p => p.CreatedAt.Date == dateTime.Date).SumAsync(p => p.Amount);
     }
 
+    /// <summary>
+    /// Количество платежей за день
+    /// </summary>
+    /// <param name="dateTime"></param>
+    /// <returns></returns>
     public async Task<long> GetCountPaymentsByDay(DateTime dateTime)
     {
-        throw new NotImplementedException();
+        return await context.Payments.CountAsync(p => p.CreatedAt.Date == dateTime);
     }
 
     public async Task<decimal> GetTotalSum()
     {
-        throw new NotImplementedException();
+        return await context.Payments.SumAsync(p => p.Amount);
     }
 
     public async Task<long> AddPayment(Payment payment)
     {
-        throw new NotImplementedException();
+        var entity = await context.Payments.AddAsync(new PaymentEfCore
+        {
+            WalletId = payment.WalletId,
+            Email = payment.Email,
+            Amount = payment.Amount,
+            Currency = payment.Currency,
+            Status = payment.Status,
+            Comment = payment.Comment,
+            CreatedAt = payment.CreatedAt
+        });
+        
+        if (entity.Entity.Status == PaymentStatus.Created)
+        {
+            var wallet = await context.Wallets.FirstOrDefaultAsync(w => w.Id == entity.Entity.WalletId);
+            wallet!.Balance -= entity.Entity.Amount;
+        }
+        
+        await context.SaveChangesAsync();
+        return entity.Entity.Id;
     }
 
 
