@@ -1,12 +1,13 @@
+using PaymentForm.Core.DtoModels;
 using PaymentForm.Core.Models;
 
-namespace PaymentForm.Core.Abstractions.IRepositories;
+namespace PaymentForm.Core.Abstractions.IServices;
 
-public interface IWalletRepository
+public interface IWalletService
 {
     Task<IEnumerable<Wallet>> GetAll();
     Task<IEnumerable<Wallet>> GetByUserId(long userId);
     Task<Wallet?> GetById(long id);
     Task<Wallet?> GetWalletNumber(string walletNumber);
-    Task<long> Add(Wallet wallet);
+    Task<long> Add(WalletAddDto dto);
 }
