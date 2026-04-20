@@ -1,12 +1,12 @@
 using PaymentForm.Core.DtoModels;
-using PaymentForm.Core.Models;
 
 namespace PaymentForm.Core.Abstractions.IServices;
 
 public interface IPaymentService
 {
     Task<IEnumerable<PaymentResponse>> GetAll();
-    Task<IEnumerable<PaymentResponse>> GetSuccessPayments();
+    Task<IEnumerable<PaymentResponse>> GetCreatedPayments();
+    Task<IEnumerable<PaymentResponse>> GetRejectedPayments();
     Task<PaymentResponse?> GetById(long id);
     Task<Decimal> GetSumByDay(DateTime dateTime);
     Task<long> GetCountPaymentsByDay(DateTime dateTime);

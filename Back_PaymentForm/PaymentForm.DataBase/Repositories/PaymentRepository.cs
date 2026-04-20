@@ -16,11 +16,21 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         return paymentsEfCore.Select(ConvertorToPayment);
     }
 
-    public async Task<IEnumerable<Payment>> GetSuccessPayments()
+    public async Task<IEnumerable<Payment>> GetCreatedPayments()
     {
         var paymentsEfCore = await context.Payments
             .AsNoTracking()
             .Where(p => p.Status == PaymentStatus.Created)
+            .ToListAsync();
+
+        return paymentsEfCore.Select(ConvertorToPayment);
+    }
+
+    public async Task<IEnumerable<Payment>> GetRejectedPayments()
+    {
+        var paymentsEfCore = await context.Payments
+            .AsNoTracking()
+            .Where(p => p.Status == PaymentStatus.Rejected)
             .ToListAsync();
 
         return paymentsEfCore.Select(ConvertorToPayment);

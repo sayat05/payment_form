@@ -15,9 +15,16 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         return payments.Select(ConvertToPaymentResponse);
     }
 
-    public async Task<IEnumerable<PaymentResponse>> GetSuccessPayments()
+    public async Task<IEnumerable<PaymentResponse>> GetCreatedPayments()
     {
-        var payments = await repository.GetSuccessPayments();
+        var payments = await repository.GetCreatedPayments();
+
+        return payments.Select(ConvertToPaymentResponse);
+    }
+
+    public async Task<IEnumerable<PaymentResponse>> GetRejectedPayments()
+    {
+        var payments = await repository.GetRejectedPayments();
 
         return payments.Select(ConvertToPaymentResponse);
     }

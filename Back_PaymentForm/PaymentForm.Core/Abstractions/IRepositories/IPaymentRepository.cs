@@ -5,7 +5,8 @@ namespace PaymentForm.Core.Abstractions.IRepositories;
 public interface IPaymentRepository
 {
     Task<IEnumerable<Payment>> GetAll();
-    Task<IEnumerable<Payment>> GetSuccessPayments();
+    Task<IEnumerable<Payment>> GetCreatedPayments();
+    Task<IEnumerable<Payment>> GetRejectedPayments();
     Task<Payment?> GetById(long id);
     Task<Decimal> GetSumByDay(DateTime dateTime);
     Task<long> GetCountPaymentsByDay(DateTime dateTime);
