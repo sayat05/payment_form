@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PaymentForm.Core\PaymentForm.Core.csproj" />
+      <ProjectReference Include="..\PaymentForm.DataBase\PaymentForm.DataBase.csproj" />
+    </ItemGroup>
+
 </Project>
