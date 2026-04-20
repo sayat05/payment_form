@@ -7,9 +7,9 @@ public interface IPaymentService
 {
     Task<IEnumerable<PaymentResponse>> GetAll();
     Task<IEnumerable<PaymentResponse>> GetSuccessPayments();
-    Task<PaymentResponse> GetById(long id);
+    Task<PaymentResponse?> GetById(long id);
     Task<Decimal> GetSumByDay(DateTime dateTime);
     Task<long> GetCountPaymentsByDay(DateTime dateTime);
     Task<Decimal> GetTotalSum();
-    Task<long> AddPayment(PaymentAddDto payment);
+    Task<long?> AddPayment(PaymentAddDto payment);
 }
