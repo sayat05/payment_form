@@ -11,4 +11,4 @@ public class WalletEfCore
     /// У одного счета один пользователь
     /// </summary>
     public UserEfCore UserEfCore { get; init; }
-}
+}   
