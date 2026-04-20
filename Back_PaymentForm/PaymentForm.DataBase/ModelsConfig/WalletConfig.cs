@@ -28,7 +28,7 @@ public class WalletConfig : IEntityTypeConfiguration<WalletEfCore>
             new() { Id = 3, WalletNumber = "3333", Balance = 4567, UserId = 2 },
             new() { Id = 4, WalletNumber = "4444", Balance = 1234, UserId = 3 },
             new() { Id = 5, WalletNumber = "5555", Balance = 5432, UserId = 4 },
-            new() { Id = 6, WalletNumber = "6666", Balance = 7687, UserId = 5 },
+            new() { Id = 6, WalletNumber = "6666", Balance = 7687, UserId = 4 },
         };
 
         builder.HasData(wallets);
