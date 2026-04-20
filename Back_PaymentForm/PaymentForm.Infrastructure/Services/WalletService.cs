@@ -5,7 +5,7 @@ using PaymentForm.Core.Models;
 
 namespace PaymentForm.Infrastructure.Services;
 
-public class WalletService(IWalletRepository repository) : IWalletService
+public class WalletService(IWalletRepository repository, IUserRepository userRepository) : IWalletService
 {
     public async Task<IEnumerable<Wallet>> GetAll()
     {
@@ -27,8 +27,12 @@ public class WalletService(IWalletRepository repository) : IWalletService
         return await repository.GetWalletNumber(walletNumber);
     }
 
-    public async Task<long> Add(WalletAddDto dto)
+    public async Task<long?> Add(WalletAddDto dto)
     {
+        var user = await userRepository.GetById(dto.UserId);
+        if (user == null)
+            return null;
+        
         return await repository.Add(new Wallet
         {
             WalletNumber = dto.WalletNumber,
