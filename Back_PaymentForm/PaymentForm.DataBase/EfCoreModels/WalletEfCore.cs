@@ -6,9 +6,14 @@ public class WalletEfCore
     public required string WalletNumber { get; init; }
     public required decimal Balance { get; init; }
     public required long UserId { get; init; }
-    
+
     /// <summary>
     /// У одного счета один пользователь
     /// </summary>
-    public UserEfCore UserEfCore { get; init; }
+    public UserEfCore UserEfCore { get; init; } = null!;
+    
+    /// <summary>
+    /// У одного кошелька много платежей
+    /// </summary>
+    public List<WalletEfCore> WalletsEfCore { get; init; } = [];
 }   
