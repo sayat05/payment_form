@@ -5,9 +5,9 @@ namespace PaymentForm.DataBase.DataBase;
 
 public class MyAppContext(DbContextOptions<MyAppContext> options) : DbContext(options)
 {
-    private DbSet<UserEfCore> Users => Set<UserEfCore>();
-    private DbSet<PaymentEfCore> Payments => Set<PaymentEfCore>();
-    private DbSet<WalletEfCore> Wallets => Set<WalletEfCore>();
+    public DbSet<UserEfCore> Users => Set<UserEfCore>();
+    public DbSet<PaymentEfCore> Payments => Set<PaymentEfCore>();
+    public DbSet<WalletEfCore> Wallets => Set<WalletEfCore>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
