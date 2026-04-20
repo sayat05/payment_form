@@ -12,5 +12,5 @@ public class PaymentEfCore
     public CurrencyType Currency { get; init; }
     public PaymentStatus Status { get; init; }
     public string Comment { get; init; } = string.Empty;
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; init; }
 }

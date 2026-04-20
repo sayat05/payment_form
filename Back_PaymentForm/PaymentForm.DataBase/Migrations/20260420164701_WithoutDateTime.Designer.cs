@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PaymentForm.DataBase.DataBase;
@@ -11,9 +12,11 @@ using PaymentForm.DataBase.DataBase;
 namespace PaymentForm.DataBase.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class MyAppContextModelSnapshot : ModelSnapshot
+    [Migration("20260420164701_WithoutDateTime")]
+    partial class WithoutDateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +68,7 @@ namespace PaymentForm.DataBase.Migrations
                             Id = 1L,
                             Amount = 123m,
                             Comment = "",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 4, 20, 16, 47, 0, 742, DateTimeKind.Utc).AddTicks(5907),
                             Currency = 1,
                             Email = "user_1@u",
                             Status = 0,
@@ -76,7 +79,7 @@ namespace PaymentForm.DataBase.Migrations
                             Id = 2L,
                             Amount = 1000m,
                             Comment = "",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 4, 20, 16, 47, 0, 742, DateTimeKind.Utc).AddTicks(7034),
                             Currency = 3,
                             Email = "user_1@u",
                             Status = 0,
@@ -87,7 +90,7 @@ namespace PaymentForm.DataBase.Migrations
                             Id = 3L,
                             Amount = 123m,
                             Comment = "",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 4, 20, 16, 47, 0, 742, DateTimeKind.Utc).AddTicks(7037),
                             Currency = 1,
                             Email = "user_2@u",
                             Status = 0,
@@ -98,7 +101,7 @@ namespace PaymentForm.DataBase.Migrations
                             Id = 4L,
                             Amount = 765m,
                             Comment = "",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 4, 20, 16, 47, 0, 742, DateTimeKind.Utc).AddTicks(7038),
                             Currency = 2,
                             Email = "user_3@u",
                             Status = 0,
@@ -109,7 +112,7 @@ namespace PaymentForm.DataBase.Migrations
                             Id = 5L,
                             Amount = 5000m,
                             Comment = "",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 4, 20, 16, 47, 0, 742, DateTimeKind.Utc).AddTicks(7040),
                             Currency = 4,
                             Email = "user_4@u",
                             Status = 0,
