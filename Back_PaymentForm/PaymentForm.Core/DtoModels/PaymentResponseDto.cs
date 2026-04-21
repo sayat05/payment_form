@@ -5,6 +5,7 @@ public class PaymentResponseDto
     public long Id { get; init; }
     public long WalletId { get; init; }
     public required string Email { get; init; }
+    public string PhoneNumber { get; init; } = string.Empty;
     public decimal Amount { get; init; }
     public required string Currency { get; init; }
     public required string Status { get; init; }

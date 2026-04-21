@@ -68,6 +68,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
         {
             WalletId = wallet.Id,
             Email = dto.Email,
+            PhoneNumber = dto.PhoneNumber,
             Amount = dto.Amount,
             Status = status,
             Currency = dto.Currency switch
@@ -93,6 +94,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
             Id = payment.Id,
             WalletId = payment.WalletId,
             Email = payment.Email,
+            PhoneNumber = payment.PhoneNumber,
             Currency = payment.Currency.ToString(),
             Status = payment.Status.ToString(),
             Amount = payment.Amount,

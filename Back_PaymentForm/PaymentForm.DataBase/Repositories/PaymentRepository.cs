@@ -81,6 +81,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         {
             WalletId = payment.WalletId,
             Email = payment.Email,
+            PhoneNumber = payment.PhoneNumber,
             Amount = payment.Amount,
             Currency = payment.Currency,
             Status = payment.Status,
@@ -106,6 +107,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
             Id = efCore.Id,
             WalletId = efCore.WalletId,
             Email = efCore.Email,
+            PhoneNumber = efCore.PhoneNumber,
             Amount = efCore.Amount,
             Currency = efCore.Currency,
             Status = efCore.Status,
