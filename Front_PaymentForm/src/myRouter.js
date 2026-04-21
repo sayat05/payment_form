@@ -9,17 +9,29 @@ const routes = [
     {
         path: '/users',
         name: 'UserPage',
-        component: () => import('@/pages/UserPage.vue')
+        component: () => import('@/pages/users/UserPage.vue')
     },
     {
         path: '/wallets',
         name: 'WalletPage',
-        component: () => import('@/pages/WalletPage.vue')
+        component: () => import('@/pages/wallets/WalletPage.vue')
     },
     {
         path: '/payments',
         name: 'PaymentsPage',
-        component: () => import('@/pages/PaymentPage.vue')
+        component: () => import('@/pages/payments/PaymentPage.vue'),
+        children: [
+            {
+                path: '',
+                name: 'PaymentDefaultPage',
+                component: () => import('@/pages/payments/PaymentsDefaultPage.vue')
+            },
+            {
+                path: 'add',
+                name: 'PaymentAddPage',
+                component: () => import('@/pages/payments/PaymentAddPage.vue')
+            },
+        ]
     }
 ];
 
