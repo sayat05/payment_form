@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.Core.DtoModels;
-using PaymentForm.Core.Enums;
 using PaymentForm.Core.Models;
 
 namespace PaymentForm.Web.Controllers;
@@ -44,7 +43,7 @@ public class PaymentsController(IPaymentService service) : ControllerBase
         return Ok(await service.GetById(id));
     }
 
-    [HttpGet("getSumDyDay")]
+    [HttpGet("getSumByDay")]
     public async Task<ActionResult<Decimal>> GetSumByDay([FromQuery] DateTime dateTime)
     {
         return Ok(await service.GetSumByDay(dateTime));
