@@ -58,7 +58,7 @@ public class PaymentService(IPaymentRepository repository, IWalletRepository wal
 
     public async Task<(string status, long? id)> AddPayment(PaymentAddDto dto)
     {
-        var wallet = await walletRepository.GetWalletNumber(dto.WalletNumber);
+        var wallet = await walletRepository.GetByWalletNumber(dto.WalletNumber);
         if (wallet == null || wallet.UserId != dto.UserId)
             return (nameof(PaymentStatus.Rejected), null);
         
