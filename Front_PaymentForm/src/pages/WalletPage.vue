@@ -1,12 +1,12 @@
+<template>
+    <p>Страница счетов</p>
+</template>
+
 <script>
 export default {
     name: "WalletPage"
 }
 </script>
-
-<template>
-
-</template>
 
 <style scoped>
 
