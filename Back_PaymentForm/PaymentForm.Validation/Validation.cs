@@ -1,5 +1,7 @@
-﻿namespace PaymentForm.Validation;
+﻿using FluentValidation;
 
-public class Validation
+namespace PaymentForm.Validation;
+
+public class Validation : AbstractValidator<Validation>
 {
 }
