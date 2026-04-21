@@ -23,14 +23,14 @@ public class PaymentAddDtoValidate : AbstractValidator<PaymentAddDto>
             .WithMessage("Must without spaces")
             .EmailAddress()
             .NotEmpty();
-
+        
         RuleFor(p => p.PhoneNumber)
             .Must(p => p == p.Trim())
             .WithMessage("Must without spaces")
             .Matches(@"^\+?\d{10,15}$")
             .WithMessage("Phone number must be valid (10-15 digits, optionally start with +).")
-            .MinimumLength(10).WithMessage("Phone number is too short.")
-            .MaximumLength(15).WithMessage("Phone number is too long.");
+            .When(u => !string.IsNullOrWhiteSpace(u.PhoneNumber));
+
 
         RuleFor(p => p.Currency)
             .Must(c => c == c.Trim())

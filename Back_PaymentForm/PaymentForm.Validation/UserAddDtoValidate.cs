@@ -25,7 +25,6 @@ public class UserAddDtoValidate : AbstractValidator<UserAddDto>
             .WithMessage("Must without spaces")
             .Matches(@"^\+?\d{10,15}$")
             .WithMessage("Phone number must be valid (10-15 digits, optionally start with +).")
-            .MinimumLength(10).WithMessage("Phone number is too short.")
-            .MaximumLength(15).WithMessage("Phone number is too long.");
+            .When(u => !string.IsNullOrWhiteSpace(u.PhoneNumber));
     }
 }
