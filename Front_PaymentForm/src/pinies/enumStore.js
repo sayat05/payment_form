@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import axios from "@/api.js";
+import axios from "@/myApi.js";
 
 export const useEnumStore = defineStore('enum', {
     state: () => ({
