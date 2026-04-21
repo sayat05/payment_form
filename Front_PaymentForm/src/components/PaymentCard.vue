@@ -1,6 +1,6 @@
 <template>
     <div class="border !m-3 p-3 w-100">
-        <p>Id: {{payment.Id}}</p>
+        <p>Id: {{payment.id}}</p>
         <p>Wallet id: {{payment.walletId}}</p>
         <p>User email: {{payment.email}}</p>
         <p>Phone number: {{payment.phoneNumber}}</p>
