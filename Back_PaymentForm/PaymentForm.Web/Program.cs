@@ -1,9 +1,12 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using PaymentForm.Core.Abstractions.IRepositories;
 using PaymentForm.Core.Abstractions.IServices;
 using PaymentForm.DataBase.DataBase;
 using PaymentForm.DataBase.Repositories;
 using PaymentForm.Infrastructure.Services;
+using PaymentForm.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +29,12 @@ builder.Services.AddDbContext<MyAppContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+#endregion
+
+#region Validation
+
+builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyContaining<Validation>();
 
 #endregion
 
