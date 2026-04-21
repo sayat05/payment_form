@@ -4,14 +4,18 @@
             <my-button>Совершить платеж</my-button>
         </router-link>
         
-        <my-button v-if="!isGetById" @click="isGetByIdForm = !isGetByIdForm">Посмотреть платеж по id</my-button>
-        <div v-else>
-            <my-button @click="isGetById = false">Скрыть платеж по id</my-button>
-            <form v-if="isGetByIdForm" @submit.prevent="getById">
-                <label>Payment id: </label>
-                <my-input v-model="paymentId" placeholed="payment id" type="number"/>
-            </form>
-        </div>
+        <router-link to="/payments/getById">
+            <my-button>Посмотреть платеж по id</my-button>
+        </router-link>
+        
+<!--        <my-button v-if="!isGetById" @click="isGetByIdForm = !isGetByIdForm">Посмотреть платеж по id</my-button>-->
+<!--        <div v-else>-->
+<!--            <my-button @click="isGetById = false">Скрыть платеж по id</my-button>-->
+<!--            <form v-if="isGetByIdForm" @submit.prevent="getById">-->
+<!--                <label>Payment id: </label>-->
+<!--                <my-input v-model="paymentId" placeholed="payment id" type="number"/>-->
+<!--            </form>-->
+<!--        </div>-->
         
         
         <my-button>Посмотреть сумму платежей за один день</my-button>

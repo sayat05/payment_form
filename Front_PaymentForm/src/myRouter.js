@@ -31,6 +31,11 @@ const routes = [
                 name: 'PaymentAddPage',
                 component: () => import('@/pages/payments/PaymentAddPage.vue')
             },
+            {
+                path: 'getById',
+                name: 'PaymentGetByIdPage',
+                component: () => import('@/pages/payments/PaymentGetByIdPage.vue')
+            },
         ]
     }
 ];
