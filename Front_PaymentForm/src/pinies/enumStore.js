@@ -11,7 +11,7 @@ export const useEnumStore = defineStore('enum', {
                 const response = await axios.get('enums/currencies');
                 this.currenciesType = response.data;
             } catch (error) {
-                console.log(error);
+                console.log(error.response);
                 alert(error.message);
             }
         }
