@@ -10,7 +10,7 @@ public class WalletAddDtoValidate : AbstractValidator<WalletAddDto>
         RuleFor(w => w.WalletNumber)
             .Must(w => w == w.Trim())
             .WithMessage("Must without spaces")
-            .Matches(@"^[0-9]+$")
+            .Matches("^[0-9]+$")
             .MinimumLength(4)
             .MaximumLength(16)
             .NotEmpty();
