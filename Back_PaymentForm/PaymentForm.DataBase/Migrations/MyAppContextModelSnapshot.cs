@@ -47,6 +47,10 @@ namespace PaymentForm.DataBase.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
@@ -68,6 +72,7 @@ namespace PaymentForm.DataBase.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Currency = 1,
                             Email = "user_1@u",
+                            PhoneNumber = "1111111",
                             Status = 0,
                             WalletId = 1L
                         },
@@ -79,6 +84,7 @@ namespace PaymentForm.DataBase.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Currency = 3,
                             Email = "user_1@u",
+                            PhoneNumber = "2222222",
                             Status = 0,
                             WalletId = 2L
                         },
@@ -90,6 +96,7 @@ namespace PaymentForm.DataBase.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Currency = 1,
                             Email = "user_2@u",
+                            PhoneNumber = "3333333",
                             Status = 0,
                             WalletId = 3L
                         },
@@ -101,6 +108,7 @@ namespace PaymentForm.DataBase.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Currency = 2,
                             Email = "user_3@u",
+                            PhoneNumber = "44444444",
                             Status = 0,
                             WalletId = 4L
                         },
@@ -112,6 +120,7 @@ namespace PaymentForm.DataBase.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Currency = 4,
                             Email = "user_4@u",
+                            PhoneNumber = "5555555",
                             Status = 0,
                             WalletId = 6L
                         });
