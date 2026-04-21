@@ -23,21 +23,28 @@ public class WalletsController(IWalletService service) : ControllerBase
     }
     
     [HttpGet("getById")]
-    public async Task<ActionResult<IEnumerable<Wallet>>> GetById(long id)
+    public async Task<ActionResult<Wallet>> GetById(long id)
     {
         return Ok(await service.GetById(id));
     }
     
-    [HttpGet("getWalletNumber")]
-    public async Task<ActionResult<IEnumerable<Wallet>>> GetWalletNumber(string walletNumber)
+    [HttpGet("getByWalletNumber")]
+    public async Task<ActionResult<Wallet>> GetByWalletNumber(string walletNumber)
     {
-        return Ok(await service.GetWalletNumber(walletNumber));
+        return Ok(await service.GetByWalletNumber(walletNumber));
     }
     
     [HttpPost("add")]
-    public async Task<ActionResult<IEnumerable<Wallet>>> Add(WalletAddDto dto)
+    public async Task<ActionResult<long>> Add(WalletAddDto dto)
     {
         var id = await service.Add(dto);
         return id != null ? Ok(id) : BadRequest("User id not found");
+    }
+    
+    [HttpPut("update")]
+    public async Task<ActionResult<bool>> Update(WalletUpdateDto dto)
+    {
+        var result = await service.Update(dto);
+        return result != null ? Ok(result) : BadRequest("Wallet id not found");
     }
 }
