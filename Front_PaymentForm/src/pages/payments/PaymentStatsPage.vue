@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-start gap-4 border rounded p-3 w-200 !mx-auto">
+    <div class="flex flex-col items-start gap-5 border rounded p-3 w-200 !mx-auto">
         <my-button @click="isGetSymByDayForm = !isGetSymByDayForm">
             Посмотреть сумму платежей за один день
         </my-button>
@@ -45,6 +45,7 @@
 
 <script>
 import {usePaymentStore} from "@/pinies/paymentStore.js";
+
 export default {
     name: "PaymentStatsPage",
     data() {
@@ -76,7 +77,6 @@ export default {
     }
 }
 </script>
-
 
 <style scoped>
 

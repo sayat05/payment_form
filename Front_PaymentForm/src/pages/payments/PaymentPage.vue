@@ -1,8 +1,7 @@
 <template>
     <div>
-        <h3>Страница платежей</h3>
+        <router-link to="/payments">Страница платежей</router-link>
         <router-view/>
-    
     </div>
 </template>
 
@@ -12,7 +11,6 @@ export default {
     name: "PaymentPage",
 }
 </script>
-
 
 <style scoped>
 

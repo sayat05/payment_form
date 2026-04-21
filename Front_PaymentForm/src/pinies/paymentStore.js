@@ -22,7 +22,7 @@ export const usePaymentStore = defineStore('payment', {
         async getCreated() {
             try {
                 const response = await axios.get('payments/getCreated');
-                this.payments = response.data;
+                this.payments = response.data.payments;
             } catch (error) {
                 console.log(error.response);
                 alert(error.message);
@@ -31,7 +31,7 @@ export const usePaymentStore = defineStore('payment', {
         async getRejected() {
             try {
                 const response = await axios.get('payments/getRejected');
-                this.payments = response.data;
+                this.payments = response.data.payments;
             } catch (error) {
                 console.log(error.response);
                 alert(error.message);
