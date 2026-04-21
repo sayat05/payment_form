@@ -1,4 +1,6 @@
 <template>
+    <router-link to="/" class="!mx-4">Главная страница</router-link>
+    
     <div class="flex flex-col items-start gap-5 border w-200 rounded p-3 !mx-auto">
         <router-link to="/payments/add">
             <my-button>Совершить платеж</my-button>
