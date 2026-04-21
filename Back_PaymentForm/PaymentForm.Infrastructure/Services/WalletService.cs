@@ -22,9 +22,9 @@ public class WalletService(IWalletRepository repository, IUserRepository userRep
         return await repository.GetById(id);
     }
 
-    public async Task<Wallet?> GetWalletNumber(string walletNumber)
+    public async Task<Wallet?> GetByWalletNumber(string walletNumber)
     {
-        return await repository.GetWalletNumber(walletNumber);
+        return await repository.GetByWalletNumber(walletNumber);
     }
 
     public async Task<long?> Add(WalletAddDto dto)
@@ -38,6 +38,21 @@ public class WalletService(IWalletRepository repository, IUserRepository userRep
             WalletNumber = dto.WalletNumber,
             Balance = dto.Balance,
             UserId = dto.UserId
+        });
+    }
+
+    public async Task<bool?> Update(WalletUpdateDto dto)
+    {
+        var wallet = await repository.GetByWalletNumber(dto.WalletNumber);
+        if (wallet == null)
+            return null;
+
+        dto.Sum += wallet.Balance;
+        return await repository.Update(new Wallet
+        {
+            WalletNumber = wallet.WalletNumber,
+            Balance = dto.Sum,
+            UserId = wallet.UserId
         });
     }
 }
