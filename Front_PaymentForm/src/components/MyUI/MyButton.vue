@@ -1,5 +1,5 @@
 <template>
-    <button class="border p-3 cursor-pointer outline-none rounded">
+    <button class="border px-3 cursor-pointer outline-none rounded">
         <slot/>
     </button>
 </template>
