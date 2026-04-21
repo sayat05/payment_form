@@ -38,6 +38,12 @@ builder.Services.AddFluentValidationAutoValidation().AddValidatorsFromAssemblyCo
 
 #endregion
 
+#region Cors
+
+builder.Services.AddCors();
+
+#endregion
+
 #region Сервисы и зависимости
 
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
@@ -59,6 +65,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(policy =>
+{
+    policy.WithOrigins("http://localhost:5173");
+    policy.AllowAnyMethod();
+    policy.AllowAnyHeader();
+    policy.AllowCredentials();
+});
 
 app.MapControllers();
 app.Run();
