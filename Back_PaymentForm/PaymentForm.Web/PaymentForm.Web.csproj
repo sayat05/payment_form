@@ -18,6 +18,7 @@
       <ProjectReference Include="..\PaymentForm.Core\PaymentForm.Core.csproj" />
       <ProjectReference Include="..\PaymentForm.DataBase\PaymentForm.DataBase.csproj" />
       <ProjectReference Include="..\PaymentForm.Infrastructure\PaymentForm.Infrastructure.csproj" />
+      <ProjectReference Include="..\PaymentForm.Validation\PaymentForm.Validation.csproj" />
     </ItemGroup>
 
 </Project>
