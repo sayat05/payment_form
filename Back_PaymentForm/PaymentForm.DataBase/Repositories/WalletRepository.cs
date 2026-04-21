@@ -13,15 +13,16 @@ public class WalletRepository(MyAppContext context) : IWalletRepository
         var walletsEfCore = await context.Wallets.AsNoTracking().ToListAsync();
         return walletsEfCore.Select(ToWallet);
     }
-    
-    public async Task<IEnumerable<Wallet>>  GetByUserId(long userId)
+
+    public async Task<IEnumerable<Wallet>> GetByUserId(long userId)
     {
         var walletsEfCore = await context.Wallets
             .AsNoTracking()
             .Where(w => w.UserId == userId)
             .ToListAsync();
-        
-        return walletsEfCore.Select(ToWallet);    }
+
+        return walletsEfCore.Select(ToWallet);
+    }
 
     public async Task<Wallet?> GetById(long id)
     {
@@ -30,12 +31,12 @@ public class WalletRepository(MyAppContext context) : IWalletRepository
             return null;
 
         return ToWallet(walletEfCore);
-
     }
 
-    public async Task<Wallet?> GetWalletNumber(string walletNumber)
+    public async Task<Wallet?> GetByWalletNumber(string walletNumber)
     {
-        var walletEfCore = await context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.WalletNumber == walletNumber);
+        var walletEfCore =
+            await context.Wallets.AsNoTracking().FirstOrDefaultAsync(w => w.WalletNumber == walletNumber);
         if (walletEfCore == null)
             return null;
 
@@ -55,8 +56,18 @@ public class WalletRepository(MyAppContext context) : IWalletRepository
 
         return entity.Entity.Id;
     }
-    
-    
+
+    public async Task<bool> Update(Wallet wallet)
+    {
+        await context.Wallets
+            .Where(w => w.WalletNumber == wallet.WalletNumber)
+            .ExecuteUpdateAsync(w => w
+                .SetProperty(x => x.Balance, wallet.Balance));
+
+        return true;
+    }
+
+
     private Wallet ToWallet(WalletEfCore efCore)
     {
         return new Wallet
