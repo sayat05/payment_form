@@ -8,6 +8,7 @@ public interface IWalletService
     Task<IEnumerable<Wallet>> GetAll();
     Task<IEnumerable<Wallet>> GetByUserId(long userId);
     Task<Wallet?> GetById(long id);
-    Task<Wallet?> GetWalletNumber(string walletNumber);
+    Task<Wallet?> GetByWalletNumber(string walletNumber);
     Task<long?> Add(WalletAddDto dto);
+    Task<bool?> Update(WalletUpdateDto dto);
 }
