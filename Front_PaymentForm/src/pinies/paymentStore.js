@@ -39,7 +39,7 @@ export const usePaymentStore = defineStore('payment', {
         },
         async getById(id) {
             try {
-                const response = await axios.get(`payments?id=${id}`);
+                const response = await axios.get(`payments/getById?id=${id}`);
                 this.payment = response.data;
             } catch (error) {
                 console.log(error.response);
@@ -48,25 +48,35 @@ export const usePaymentStore = defineStore('payment', {
         },
         async getSumByDay(dateTime) {
             try {
-                const response = await axios.get('payments/getSumByDay', dateTime);
+                const response = await axios.get('payments/getSumByDay', {
+                    params: {
+                        dateTime: dateTime
+                    }
+                });
                 this.sum = response.data;
+
             } catch (error) {
                 console.log(error.response);
                 alert(error.message);
             }
         },
-        async getCountByDay() {
+        async getCountByDay(dateTime) {
             try {
-                const response = await axios.get('payments/');
+                const response = await axios.get('payments/getCountByDay', {
+                    params: {
+                        dateTime: dateTime
+                    }
+                });
+
                 this.count = response.data;
             } catch (error) {
                 console.log(error.response);
                 alert(error.message);
             }
         },
-        async geTotalSum() {
+        async getTotalSum() {
             try {
-                const response = await axios.get('payments/');
+                const response = await axios.get('payments/geTotalSum');
                 this.sum = response.data;
             } catch (error) {
                 console.log(error.response);
