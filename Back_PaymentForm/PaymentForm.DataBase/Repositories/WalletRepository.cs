@@ -51,6 +51,8 @@ public class WalletRepository(MyAppContext context) : IWalletRepository
             UserId = wallet.UserId,
         });
 
+        await context.SaveChangesAsync();
+
         return entity.Entity.Id;
     }
     
