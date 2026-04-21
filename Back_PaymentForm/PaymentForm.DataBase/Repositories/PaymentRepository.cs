@@ -24,6 +24,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         var paymentsEfCore = await context.Payments
             .AsNoTracking()
             .Where(p => p.Status == PaymentStatus.Created)
+            .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
 
         return (paymentsEfCore.Count, paymentsEfCore.Select(ToPayment));
@@ -34,6 +35,7 @@ public class PaymentRepository(MyAppContext context) : IPaymentRepository
         var paymentsEfCore = await context.Payments
             .AsNoTracking()
             .Where(p => p.Status == PaymentStatus.Rejected)
+            .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
 
         return (paymentsEfCore.Count, paymentsEfCore.Select(ToPayment));
